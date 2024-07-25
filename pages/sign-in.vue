@@ -3,6 +3,40 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { useToast } from '~/components/ui/toast'
+
+const { nhost } = useNhost()
+const { toast } = useToast()
+const frm = ref({
+  email: '',
+  password: '',
+})
+const { user } = useUser()
+async function handleSignIn() {
+  const { error, session } = await nhost.auth.signIn({
+    email: frm.value.email,
+    password: frm.value.password,
+  })
+  if (error) {
+    toast({
+      title: 'Sign in failed',
+      description: error.message,
+    })
+    throw new Error(error.message)
+  }
+
+  if (session) {
+    user.value = {
+      ...session.user,
+    }
+  }
+}
+
+watchEffect(() => {
+  if (user.value) {
+    navigateTo('/')
+  }
+})
 </script>
 
 <template>
@@ -21,6 +55,7 @@ import { Label } from '@/components/ui/label'
           <Label for="email">Email</Label>
           <Input
             id="email"
+            v-model="frm.email"
             type="email"
             placeholder="m@example.com"
             required
@@ -33,9 +68,9 @@ import { Label } from '@/components/ui/label'
               Forgot your password?
             </a>
           </div>
-          <Input id="password" type="password" required />
+          <Input id="password" v-model="frm.password" type="password" required />
         </div>
-        <Button type="submit" class="w-full">
+        <Button class="w-full" @click="handleSignIn">
           Login
         </Button>
         <Button variant="outline" class="w-full">

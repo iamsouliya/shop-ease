@@ -16,6 +16,7 @@ const getMoviesQuery = `
     }
   `
 const { nhost } = useNhost()
+
 const movies = shallowRef<Movie[]>([])
 async function getMovies() {
   const { data } = await nhost.graphql.request(getMoviesQuery)
