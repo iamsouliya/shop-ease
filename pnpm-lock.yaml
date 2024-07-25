@@ -11,6 +11,9 @@ importers:
       '@nhost/vue':
         specifier: ^2.6.3
         version: 2.6.3(graphql@16.8.1)(vue@3.4.34(typescript@5.5.4))(xstate@4.38.3)
+      '@vueuse/core':
+        specifier: ^10.11.0
+        version: 10.11.0(vue@3.4.34(typescript@5.5.4))
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
