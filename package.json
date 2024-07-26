@@ -10,10 +10,11 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "db:gen": "supabase gen types typescript --project-id zbxbwhspaoozerwgegpk > database.types.ts"
   },
   "dependencies": {
-    "@nhost/vue": "^2.6.3",
+    "@nuxtjs/supabase": "^1.3.5",
     "@vueuse/core": "^10.11.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

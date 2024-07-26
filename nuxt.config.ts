@@ -4,14 +4,8 @@ import process from 'node:process'
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
-  runtimeConfig: {
-    public: {
-      nhostSubdomain: process.env.NUXT_NHOST_SUBDOMAIN,
-      nhostRegion: process.env.NUXT_NHOST_REGION,
-    },
-  },
   ssr: false,
-  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt'],
+  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', '@nuxtjs/supabase'],
   shadcn: {
     /**
      * Prefix for all the imported component
@@ -22,5 +16,15 @@ export default defineNuxtConfig({
      * @default "./components/ui"
      */
     componentDir: './components/ui',
+  },
+  supabase: {
+    redirect: false,
+    redirectOptions: {
+      login: '/sign-in',
+      callback: '/confirm',
+      include: undefined,
+      exclude: [],
+      cookieRedirect: false,
+    },
   },
 })
