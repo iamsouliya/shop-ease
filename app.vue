@@ -4,7 +4,9 @@ import Toaster from './components/ui/toast/Toaster.vue'
 
 <template>
   <div>
-    <NuxtPage />
-    <Toaster />
+    <NuxtLayout>
+      <NuxtPage />
+      <Toaster />
+    </NuxtLayout>
   </div>
 </template>
