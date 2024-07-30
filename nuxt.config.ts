@@ -18,12 +18,12 @@ export default defineNuxtConfig({
     componentDir: './components/ui',
   },
   supabase: {
-    redirect: false,
+    redirect: true,
     redirectOptions: {
       login: '/sign-in',
       callback: '/confirm',
       include: undefined,
-      exclude: [],
+      exclude: ['/sign-in', '/sign-up', '/confirm', '/'],
       cookieRedirect: false,
     },
   },

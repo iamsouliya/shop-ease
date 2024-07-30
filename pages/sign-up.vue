@@ -16,24 +16,22 @@ const frm = ref({
 })
 const db = useDB()
 
-async function signInWithEmailAndPassword() {
-  const { data, error } = await db.auth.signInWithPassword({
+async function signUpWithEmailAndPassword() {
+  const { data } = await db.auth.signUp({
     email: frm.value.email,
     password: frm.value.password,
   })
-  if (error) {
+  if (!data.session) {
     toast({
-      title: 'Login failed.',
-      description: error.message,
-      variant: 'destructive',
+      title: 'Sign up failed.',
+      description: 'Please try again.',
     })
-    throw new Error(error.message)
+    return new Error('Failed to sign up.')
   }
-  const { session } = data
-  if (session) {
+  if (data.session) {
     toast({
-      title: 'Login successful.',
-      description: 'Welcome back.',
+      title: 'Sign up successful.',
+      description: 'Welcome!',
     })
     navigateTo('/')
   }
@@ -51,17 +49,12 @@ async function signInWithSocial(provider: 'google' | 'github') {
 }
 
 async function onSubmit(provider?: 'google' | 'github') {
-  if (!provider) {
-    await signInWithEmailAndPassword()
+  if (provider === undefined) {
+    await signUpWithEmailAndPassword()
   }
   else {
     await signInWithSocial(provider)
   }
-
-  toast({
-    title: 'Login successful.',
-    description: 'Welcome back.',
-  })
 }
 </script>
 
@@ -70,7 +63,7 @@ async function onSubmit(provider?: 'google' | 'github') {
     <Card class="mx-auto max-w-sm">
       <CardHeader>
         <CardTitle class="text-2xl">
-          Sign in
+          Sign up
         </CardTitle>
         <CardDescription>
           Enter your email below to login to your account
@@ -98,16 +91,16 @@ async function onSubmit(provider?: 'google' | 'github') {
             <Input id="password" v-model="frm.password" type="password" required />
           </div>
           <Button class="w-full" @click="onSubmit()">
-            Sign in
+            Sign up
           </Button>
           <Button variant="outline" class="w-full" @click="onSubmit('google')">
-            Sign in with Google
+            Sign up with Google
           </Button>
         </div>
         <div class="mt-4 text-center text-sm">
-          Don't have an account?
-          <NuxtLink to="/sign-up" class="underline">
-            Sign up
+          Already have an account?
+          <NuxtLink to="/sign-in" class="underline">
+            Sign in
           </NuxtLink>
         </div>
       </CardContent>
