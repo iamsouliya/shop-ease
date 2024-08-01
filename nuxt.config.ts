@@ -27,4 +27,7 @@ export default defineNuxtConfig({
       cookieRedirect: false,
     },
   },
+  experimental: {
+    typedPages: true,
+  },
 })

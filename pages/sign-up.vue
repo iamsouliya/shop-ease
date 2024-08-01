@@ -84,13 +84,13 @@ async function onSubmit(provider?: 'google' | 'github') {
           <div class="grid gap-2">
             <div class="flex items-center">
               <Label for="password">Password</Label>
-              <a href="#" class="ml-auto inline-block text-sm underline">
+              <NuxtLink to="/recovery" class="ml-auto inline-block text-sm underline">
                 Forgot your password?
-              </a>
+              </NuxtLink>
             </div>
             <Input id="password" v-model="frm.password" type="password" required />
           </div>
-          <Button class="w-full" @click="onSubmit()">
+          <Button class="w-full" @click="onSubmit">
             Sign up
           </Button>
           <Button variant="outline" class="w-full" @click="onSubmit('google')">
